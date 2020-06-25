@@ -1,4 +1,4 @@
 # Battleship
 The game of battleship written in C
 
-Currently implementing the setup phase of the game.
+actual gameplay is yet to be implemented but will be next in line.
