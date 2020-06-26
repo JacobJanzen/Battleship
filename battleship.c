@@ -2,13 +2,6 @@
 
 #define SIZE 10 //size of the square board
 
-/*number of each type of ship*/
-#define NUM_C 1
-#define NUM_B 2
-#define NUM_D 3
-#define NUM_S 4
-#define NUM_P 5
-
 /*size of each ship*/
 #define C_SIZE 5
 #define B_SIZE 4
@@ -53,46 +46,18 @@ void printBoard(char board[SIZE][SIZE]){
 			printf(" ");
 		printf("%d ", i+1); //print the number coordinates
 		for(int j = 0; j < SIZE; j++)
-			switch(board[j][i]){
-				case 'a':
-					printf("%c ",'C'); break;
-				case 'b':
-				case 'c':
-					printf("%c ",'B'); break;
-				case 'd':
-				case 'e':
-				case 'f':
-					printf("%c ",'D'); break;
-				case 'g':
-				case 'h':
-				case 'i':
-				case 'j':
-					printf("%c ",'S'); break;
-				case 'k':
-				case 'l':
-				case 'm':
-				case 'n':
-				case 'o':
-					printf("%c ",'P'); break;
-				default:
-					printf("%c ",board[j][i]);
-			}
+			printf("%c ",board[j][i]);
 		printf("\n");
 	}
 }
 
 void setBoard(char board[SIZE][SIZE]){
 	//set carrier location
-	for(int i = 0; i < NUM_C; i++)
-		chooseLocation(board, C_SIZE, i+'a');
-	for(int i = 0; i < NUM_B; i++)
-		chooseLocation(board, B_SIZE, i+'a'+NUM_C);
-	for(int i = 0; i < NUM_D; i++)
-		chooseLocation(board, D_SIZE, i+'a'+NUM_C+NUM_B);
-	for(int i = 0; i < NUM_S; i++)
-		chooseLocation(board, S_SIZE, i+'a'+NUM_C+NUM_B+NUM_D);
-	for(int i = 0; i < NUM_S; i++)
-		chooseLocation(board, P_SIZE, i+'a'+NUM_C+NUM_B+NUM_D+NUM_S);
+	chooseLocation(board, C_SIZE, 'C');
+	chooseLocation(board, B_SIZE, 'B');
+	chooseLocation(board, D_SIZE, 'D');
+	chooseLocation(board, S_SIZE, 'S');
+	chooseLocation(board, P_SIZE, 'P');
 	printBoard(board);
 }
 
