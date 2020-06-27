@@ -41,12 +41,16 @@ int main(void){
 		playGame(board1,board2);
 		printf("Press ENTER to end turn :\n");
 		getchar();
+		system("@cls||clear");
+		printf("Press ENTER to start your turn: \n");
 		getchar();
 		system("@cls||clear");
 		if(!gameOver){
 			playGame(board2,board1);
 			printf("Press ENTER to end turn :\n");
 			getchar();
+			system("@cls||clear");
+			printf("Press ENTER to start your turn: \n");
 			getchar();
 			system("@cls||clear");
 		}
