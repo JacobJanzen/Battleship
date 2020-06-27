@@ -35,32 +35,12 @@ int main(void){
 
 	/*set the boards*/
 	setBoard(board1);
-	getchar();
-	printf("Press ENTER to start your turn: \n");
-	getchar();
-	system("@cls||clear");
 	setBoard(board2);
-	printf("Press ENTER to start your turn: \n");
-	getchar();
 	/*the game starts*/
 	do{
 		playGame(board1,board2);
-		printf("Press ENTER to end turn :\n");
-		getchar();
-		getchar();
-		system("@cls||clear");
-		printf("Press ENTER to start your turn: \n");
-		getchar();
-		system("@cls||clear");
 		if(!gameOver){
 			playGame(board2,board1);
-			printf("Press ENTER to end turn :\n");
-			getchar();
-			getchar();
-			system("@cls||clear");
-			printf("Press ENTER to start your turn: \n");
-			getchar();
-			system("@cls||clear");
 		}
 	}while(!gameOver);
 
@@ -120,6 +100,10 @@ void setBoard(char board[SIZE][SIZE]){
 	system("@cls||clear");
 	chooseLocation(board, P_SIZE, 'P'); //patrol boat
 	system("@cls||clear");
+	printf("Press ENTER to start your turn: \n");
+	getchar();
+	getchar();
+	system("@cls||clear");
 }
 
 void chooseLocation(char board[SIZE][SIZE], int size, char shipNum){
@@ -131,9 +115,15 @@ void chooseLocation(char board[SIZE][SIZE], int size, char shipNum){
 		printBoard(board); //draw the board to the screen
 
 		/*choose the location*/
-		printf("Enter the top left coordinate in format and direction (h = horizontal, v = vertical) in format \"7bh\". Size is %d: ", size);
-		scanf("%d%c%c", &vPos, &hPosChar, &direction);
-
+		do{
+			printf("Enter the top left coordinate in format and direction (h = horizontal, v = vertical) in format \"7bh\". Size is %d: ", size);
+			if(scanf("%d%c%c", &vPos, &hPosChar, &direction) == 3)
+				break;
+			else{
+				printf("Enter a valid coordinate and direction\n");
+				getchar();
+			}
+		}while(true);
 		/*make the values useable*/
 		--vPos;
 		hPos = hPosChar - 'a';
@@ -159,8 +149,11 @@ void chooseLocation(char board[SIZE][SIZE], int size, char shipNum){
 				}
 			}
 		}
-		if(vPos+height > SIZE || hPos+width > SIZE || hPos < 0 || vPos < 0)
+		if(vPos+height > SIZE || hPos+width > SIZE || hPos < 0 || vPos < 0){
 			printf("Enter a valid location\n");
+			vPos = 10;
+			hPos = 10;
+		}
 	}while(vPos+height > SIZE || hPos+width > SIZE || (direction != 'h' && direction != 'v') || hPos < 0 || vPos < 0);
 
 	addShip(vPos, hPos, direction, size, board, shipNum); //places the ship on the board
@@ -188,8 +181,15 @@ void playGame(char pBoard[SIZE][SIZE], char oBoard[SIZE][SIZE]){
 
 	/* get the location to aim */
 	do{
-		printf("Enter the location you want to hit (e.g. 7b): ");
-		scanf("%d%c", &vPos, &hPosChar);
+		do{
+			printf("Enter the location you want to hit (e.g. 7b): ");
+			if(scanf("%d%c", &vPos, &hPosChar) == 2)
+				break;
+			else{
+				printf("Enter a valid pair of coordinates\n");
+				getchar();
+			}
+		}while(true);
 		vPos--;
 		hPos = hPosChar - 'a';
 		if(hPos >= SIZE || vPos >= SIZE || oBoard[hPos][vPos] == 'X' || oBoard[hPos][vPos] == 'O' || hPos < 0 || vPos < 0)
@@ -223,6 +223,15 @@ void playGame(char pBoard[SIZE][SIZE], char oBoard[SIZE][SIZE]){
 		}
 	}
 
-	if(allSank)//ends the game
+	if(allSank){//ends the game
 		gameOver = true;
+		printf("You won");
+	}
+	printf("Press ENTER to end turn :\n");
+	getchar();
+	getchar();
+	system("@cls||clear");
+	printf("Press ENTER to start your turn: \n");
+	getchar();
+	system("@cls||clear");
 }
