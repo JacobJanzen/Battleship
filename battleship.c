@@ -35,11 +35,18 @@ int main(void){
 
 	/*set the boards*/
 	setBoard(board1);
+	getchar();
+	printf("Press ENTER to start your turn: \n");
+	getchar();
+	system("@cls||clear");
 	setBoard(board2);
+	printf("Press ENTER to start your turn: \n");
+	getchar();
 	/*the game starts*/
 	do{
 		playGame(board1,board2);
 		printf("Press ENTER to end turn :\n");
+		getchar();
 		getchar();
 		system("@cls||clear");
 		printf("Press ENTER to start your turn: \n");
@@ -48,6 +55,7 @@ int main(void){
 		if(!gameOver){
 			playGame(board2,board1);
 			printf("Press ENTER to end turn :\n");
+			getchar();
 			getchar();
 			system("@cls||clear");
 			printf("Press ENTER to start your turn: \n");
